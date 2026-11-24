@@ -15,6 +15,7 @@ projects:
   # --- Original smoke-test fixtures (backward-compatible) ---
   - dir: standalone
     name: standalone
+    workflow: issue-7050-slow-plan
 
   - dir: standalone-with-workspace
     name: standalone-with-workspace
@@ -152,3 +153,10 @@ workflows:
         - run: printf '\nATLANTIS_E2E_MIXED_PLAN_MUTATED\n' >> "$PLANFILE"
         - apply
         - run: echo ATLANTIS_E2E_MIXED_BUILTIN_APPLY_MUST_NOT_RUN
+
+  issue-7050-slow-plan:
+    plan:
+      steps:
+        - run: echo ATLANTIS_E2E_7050_PLAN_START && sleep 35
+        - init
+        - plan
